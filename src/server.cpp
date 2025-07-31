@@ -20,8 +20,8 @@ int main(int argc, char **argv) {
   //
   // int server_fd = socket(AF_INET, SOCK_STREAM, 0);
   // if (server_fd < 0) {
-  //  std::cerr << "Failed to create server socket\n";
-  //  return 1;
+  //   std::cerr << "Failed to create server socket\n";
+  //   return 1;
   // }
   //
   // // Since the tester restarts your program quite often, setting SO_REUSEADDR
