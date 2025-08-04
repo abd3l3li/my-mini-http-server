@@ -99,6 +99,21 @@ int main(int argc, char **argv) {
 
       if (path == "/") { // send sends a response to the client through the socket fd
         send(client_fd, str1.c_str(), str1.size(), 0);
+      } else if (path.substr(0, 5) == "/echo") {
+        // Extract the message after "/echo/"
+        std::string empty = "HTTP/1.1 400 Bad Request\r\n\r\n";
+        if (path.size() < 6) {
+          send(client_fd, empty.c_str(), empty.size(), 0);
+          close(client_fd);
+          continue;
+        }
+        std::string message = path.substr(6); // 6 to skip "/echo/"
+        std::string response = "HTTP/1.1 200 OK"
+        "\r\nContent-Type: text/plain\r\nContent-Length: "
+        + std::to_string(message.size())
+        + "\r\n\r\n"
+        + message;
+        send(client_fd, response.c_str(), response.size(), 0);
       } else {
         send(client_fd, str2.c_str(), str2.size(), 0);
       }
