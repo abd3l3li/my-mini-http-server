@@ -68,4 +68,4 @@ src/
 ├── Makefile          # Build configuration
 └── test.txt          # Sample file for testing
 ```
-Don't forget to visit the full implementation of the real [42Webserv](https://github.com/Lc0d3r/1337-Webserv.git) Repo.
+## ✨ Don't forget to visit the full implementation of the real [42Webserv](https://github.com/Lc0d3r/1337-Webserv.git) Repo.
