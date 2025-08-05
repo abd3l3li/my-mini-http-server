@@ -114,6 +114,34 @@ int main(int argc, char **argv) {
         + "\r\n\r\n"
         + message;
         send(client_fd, response.c_str(), response.size(), 0);
+      } else if (path == "/user-agent") {
+        // Extract User-Agent from the request headers
+        std::string user_agent;
+        std::string line;
+        while (std::getline(request, line) && !line.empty()) {
+          // headers are case-insensitive in real HTTP servers
+          if (line.find("User-Agent:") == 0) {
+            user_agent = line.substr(12); // 12 to skip "User-Agent: "
+            if (!user_agent.empty() && user_agent[0] == ' ')
+              user_agent.erase(0, 1); // Remove leading space if present 
+              // back() gets reference to last character
+            if (user_agent.back() == '\r') {
+              // pop_back() removes the last character from the string
+              user_agent.pop_back(); // Remove trailing \r if present
+            }
+            break;
+          }
+        }
+        if (!user_agent.empty()) {
+          std::string response = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: "
+          + std::to_string(user_agent.size())
+          + "\r\n\r\n"
+          + user_agent;
+          send(client_fd, response.c_str(), response.size(), 0);
+        } else {
+          send(client_fd, str2.c_str(), str2.size(), 0);
+        }
+
       } else {
         send(client_fd, str2.c_str(), str2.size(), 0);
       }
