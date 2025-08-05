@@ -1,7 +1,7 @@
 [![progress-banner](https://backend.codecrafters.io/progress/http-server/19e419f9-3526-498e-8faa-c1788bce5dd6)](https://app.codecrafters.io/users/codecrafters-bot?r=2qF)
 
 This is a starting point for C++ solutions to the
-["Build Your Own HTTP server" Challenge]([https://app.codecrafters.io/courses/http-server/overview](https://app.codecrafters.io/r/quaint-coyote-147062)).
+["Build Your Own HTTP server" Challenge](https://app.codecrafters.io/r/quaint-coyote-147062).
 
 [HTTP](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol) is the
 protocol that powers the web. In this challenge, you'll build a HTTP/1.1 server
