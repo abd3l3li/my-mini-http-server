@@ -21,3 +21,4 @@ void runServer(int server_fd, struct sockaddr_in &client_addr,
                             int &client_addr_len, int argc, char **argv);
 
 void handleFiles(int client_fd, const std::string &fullPath);
+void handlePostquery(int client_fd, const std::string &fullPath, const std::string &buffer);
