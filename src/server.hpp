@@ -9,10 +9,15 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <netdb.h>
-
+#include <fstream>
 #include <sstream>
 #include <thread>
 
 
-void handleMultiClients(int client_fd, struct sockaddr_in &client_addr);
-void runServer(int server_fd, struct sockaddr_in &client_addr, int &client_addr_len);
+void handleMultiClients(int client_fd, struct sockaddr_in &client_addr,
+                            int argc, char **argv);
+
+void runServer(int server_fd, struct sockaddr_in &client_addr,
+                            int &client_addr_len, int argc, char **argv);
+
+void handleFiles(int client_fd, const std::string &fullPath);

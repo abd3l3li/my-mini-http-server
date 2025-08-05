@@ -1,7 +1,12 @@
 #include "server.hpp"
 
-int main()
+int main(int argc, char **argv)
 {
+    // Flush after every std::cout / std::cerr
+    //! unbuffered mode
+    std::cout << std::unitbuf;
+    std::cerr << std::unitbuf;
+
     //! consider socket like a new phone
     //! in general socket is like bidirectional pipe
         //! in the same machine or over network
@@ -41,5 +46,5 @@ int main()
     int client_addr_len = sizeof(client_addr);
 
     std::cout << "Logs from your program will appear here!\n";
-    runServer(server_fd, client_addr, client_addr_len);
+    runServer(server_fd, client_addr, client_addr_len, argc, argv);
 }

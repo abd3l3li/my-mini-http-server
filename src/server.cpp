@@ -1,10 +1,7 @@
 #include "server.hpp"
 
-void runServer(int server_fd, struct sockaddr_in &client_addr, int &client_addr_len){
-  // Flush after every std::cout / std::cerr
-  //! unbuffered mode
-  std::cout << std::unitbuf;
-  std::cerr << std::unitbuf;
+void runServer(int server_fd, struct sockaddr_in &client_addr, int &client_addr_len,
+                            int argc, char **argv){
   
   std::cout << "Waiting for a client to connect...\n";
   
@@ -18,7 +15,7 @@ void runServer(int server_fd, struct sockaddr_in &client_addr, int &client_addr_
       continue;
     }
 
-    handleMultiClients(client_fd, client_addr);
+    handleMultiClients(client_fd, client_addr, argc, argv);
   }
 
   close(server_fd);
