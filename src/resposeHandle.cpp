@@ -6,7 +6,7 @@ void handleMultiClients(int client_fd, struct sockaddr_in &client_addr,
     // thread for handling multiple clients
     std::thread
     (
-        // this is lambda function that captures client_fd by value
+        // this is a lambda function that captures client_fd by value
         [client_fd, argc, argv]()
         {
             char buffer[1024];
@@ -85,11 +85,37 @@ void handleMultiClients(int client_fd, struct sockaddr_in &client_addr,
                         if (!basePath.empty() && basePath.back() != '/')
                             basePath += '/';
                         std::string fullPath = basePath + path.substr(7);   
-                        handleFiles(client_fd, fullPath);
+                        if (method == "GET") {
+                            handleFiles(client_fd, fullPath);
+                        } else if (method == "POST") {
+                            // Find the body start (after the blank line)
+                            std::string requestStr(buffer);
+                            size_t body_pos = requestStr.find("\r\n\r\n");
+                            if (body_pos != std::string::npos) {
+                                std::string body = requestStr.substr(body_pos + 4);
 
-                } else
+                                // Save body to file
+                                std::ofstream outfile(fullPath);
+                                if (outfile) {
+                                    outfile << body;
+                                    outfile.close();
+
+                                    std::string response = "HTTP/1.1 201 Created\r\n\r\n";
+                                    send(client_fd, response.c_str(), response.size(), 0);
+                                } else {
+                                    std::string response = "HTTP/1.1 500 Internal Server Error\r\n\r\n";
+                                    send(client_fd, response.c_str(), response.size(), 0);
+                                }
+                            } else {
+                                // Bad Request (no body found)
+                                std::string response = "HTTP/1.1 400 Bad Request\r\n\r\n";
+                                send(client_fd, response.c_str(), response.size(), 0);
+                            }
+                        }
+                } else {
                     send(client_fd, str2.c_str(), str2.size(), 0);
-            close(client_fd);
+                }
+                close(client_fd);
             }
         }
     ).detach(); // Detach the thread to handle the client separately
