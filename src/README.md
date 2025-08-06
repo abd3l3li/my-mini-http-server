@@ -69,4 +69,4 @@ src/
 └── test.txt          # Sample file for testing
 ```
 ## ✨ Don't forget to visit the full implementation of the real [42Webserv](https://github.com/Lc0d3r/1337-Webserv.git) Repo.
-  ## And you can see my [Parsing-implementation](https://github.com/abd3l3li/webserv_parsing_practice.git) of Webserv as well.
+## 🪄 And you can see my [Parsing-implementation](https://github.com/abd3l3li/webserv_parsing_practice.git) of Webserv as well.
